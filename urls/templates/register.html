@@ -1,0 +1,36 @@
+{% extends 'urls/baseplate.html' %}
+{% block content %}
+{% include 'urls/topbar.html' %}
+<h1>Register for Python-OBD</h1>
+<form action="" method="POST">
+    <div class="form">
+        {% csrf_token %}
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" spellcheck="false">
+        {% if username %}
+            <span class="error">Error:</span>
+            <span class="error">{{ username }}</span>
+        {% endif %}
+        <label for="display_name">Display Name</label>
+        <input type="text" id="display_name" name="display_name" spellcheck="false">
+        {% if display_name %}
+            <span class="error">Error:</span>
+            <span class="error">{{ display_name }}</span>
+        {% endif %}
+        <label for="password1">Password</label>
+        <input type="password" id="password1" name="password1">
+        {% if password1 %}
+            <span class="error">Error:</span>
+            <span class="error">{{ password1 }}</span>
+        {% endif %}
+        <label for="password2">Confirm Password</label>
+        <input type="password" id="password2" name="password2">
+        {% if password2 %}
+            <span class="error">Error:</span>
+            <span class="error">{{ password2 }}</span>
+        {% endif %}
+    </div>
+    <p style="text-align: center;">Already have an account? <a href="/log-in">Log in.</a></p>
+    <input type="submit" value="Register" class="btn">
+</form>
+{% endblock %}

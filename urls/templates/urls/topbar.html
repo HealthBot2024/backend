@@ -1,0 +1,11 @@
+<nav class="topbar">
+    <h3 onclick="window.location.replace('/')">Python-OBD</h3>
+    <div class="topbar__spacer"></div>
+    {% if user %}
+    <a class="btn" href="/dashboard">Dashboard</a>
+    <h3 style="margin-left: 10px;">Hi, {{ display_name }}</h3>
+    {% else %}
+    <a class="btn" href="/log-in">Log in</a>
+    <a class="btn" href="/register">Register</a>
+    {% endif %}
+</nav>

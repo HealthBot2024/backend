@@ -1,0 +1,19 @@
+{% extends 'urls/baseplate.html' %}
+{% block content %}
+{% include 'urls/topbar.html' %}
+<h1>Log into Python-OBD</h1>
+<form action="" method="POST">
+    {% csrf_token %}
+    <div class="form">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" spellcheck="false">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password">
+    </div>
+    {% for error in errors %}
+        <p style="text-align: center;" class="error">{{ error }}</p>
+    {% endfor %}
+    <p style="text-align: center;">Don't have an account? <a href="/register">Registor for one.</a></p>
+    <input type="submit" value="Log in" class="btn">
+</form>
+{% endblock %}
