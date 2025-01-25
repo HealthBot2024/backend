@@ -1,0 +1,30 @@
+@media screen and (max-width: 535px) {
+    .topbar > h3:not(h3:nth-child(1)) {
+        display: none;
+    }
+    .topbar > * {
+        flex: 1;
+        font-size: 0.9rem;
+    }
+    .topbar > div {
+        flex: 0 !important;
+        display: none !important;
+    }
+}
+@media screen and (max-width: 438px) {
+    .topbar {
+        font-size: 0.75rem;
+        align-items: stretch !important;
+    }
+    .topbar > h3 {
+        display: none;
+    }
+}
+#username:hover::after,
+#display-name:hover::after {
+    content: "🖊️";
+}
+#username-input {
+    margin-left: 50%;
+    translate: -50%
+}

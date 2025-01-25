@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import CustomUserCreationForm
 
@@ -13,18 +13,25 @@ def index(request):
             'username': username,
             'display_name': display_name
         })
-    return render(request, 'index.html')
+    return render(request, 'index.html', {
+            'user': False,
+        })
 
 def register(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('/')
+            return redirect('/log-in')
         else:
-            return render(request, 'register.html', context=form.errors)
+            return render(request, 'register.html', {
+                **form.erros,
+                'user': False
+            })
 
-    return render(request, 'register.html', {})
+    return render(request, 'register.html',  {
+            'user': False,
+        })
 
 def loginPage(request):
     form = None
@@ -37,7 +44,7 @@ def loginPage(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('/')
+                return redirect('/dashboard')
             else:
                 errors.append("You may not log in at this time.")
         else:
@@ -45,7 +52,7 @@ def loginPage(request):
     else:
         form = AuthenticationForm()
 
-    return render(request, 'login.html', {'errors': errors})
+    return render(request, 'login.html', {'errors': errors, 'user': False})
 
 def dashboard(request):
     if not request.user.is_authenticated:
@@ -58,3 +65,13 @@ def dashboard(request):
             'username': username,
             'display_name': display_name
         })
+
+def logout_user(request):
+    if request.user.is_authenticated:
+        logout(request)
+    return redirect('/')
+
+def delete_user(request):
+    if request.user.is_authenticated:
+        request.user.delete()
+    return redirect('/')

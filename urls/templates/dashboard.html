@@ -1,9 +1,67 @@
 {% extends 'urls/baseplate.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'dashboard.css' %}">
+{% endblock %}
 {% block content %}
 <nav class="topbar">
     <h3 onclick="window.location.replace('/')">Python-OBD</h3>
+    <a class="btn">My Driving</a>
+    <a class="btn">Leader Board</a>
+    <a class="btn">Friends</a>
     <div class="topbar__spacer"></div>
     <h3>Hi, {{ display_name }}</h3>
 </nav>
-<h1>Dashboard</h1>
+<h1 style="margin-bottom: 0px"><span id="display-name">{{ display_name }}</span>'s Dashboard</h1>
+<h2 id="username" style="margin-top: 0px">@{{ username }}</h2>
+<div style="padding: 10px;">
+    <fieldset style="border-color: #ffb3b3;">
+        <legend style="color: #ffb3b3;" class="error">Danger Zone</legend>
+        <a href="/logout" class="error">Log out.</a><br>
+        <hr style="border-color: #ffb3b3;">
+        <a onclick="
+        if (window.prompt('Type DELETE in all caps to confirm account deletion') === 'DELETE') {
+            window.location.replace('/delete')
+        }
+        " class="error">Delete Account.</a>
+    </fieldset>
+</div>
+<script>
+const username = document.getElementById('username')
+username.addEventListener('click', () => {
+    username.style.display = 'none'
+    const input = document.createElement('input')
+    input.value = "{{ username }}"
+    input.id = 'username-input'
+    input.focus();
+
+    input.addEventListener('blur', () => {
+        username.style.display = null;
+        username.innerText = '@' + input.value;
+        input.remove();
+    })
+
+    username.insertAdjacentElement('afterend', input);
+
+})
+const displayName = document.getElementById('display-name')
+displayName.addEventListener('click', () => {
+    displayName.style.display = 'none'
+    const input = document.createElement('input')
+    input.value = "{{ display_name }}"
+    input.id = 'display-name-input'
+    input.style.fontSize = '1.5rem';
+    input.style.width = '100px';
+    input.focus();
+
+    input.addEventListener('blur', () => {
+        displayName.style.display = null;
+        displayName.innerText = input.value;
+        input.remove();
+    })
+
+    displayName.insertAdjacentElement('afterend', input);
+
+})
+</script>
 {% endblock %}

@@ -1,3 +1,7 @@
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'topbar.css' %}">
+{% endblock %}
 <nav class="topbar">
     <h3 onclick="window.location.replace('/')">Python-OBD</h3>
     <div class="topbar__spacer"></div>

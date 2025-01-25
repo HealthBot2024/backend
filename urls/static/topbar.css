@@ -1,0 +1,12 @@
+nav.topbar {
+    position: sticky;
+    display: flex;
+    align-items: center;
+    background-color: var(--light-background);
+    gap: 5px;
+    padding: 0px 10px;
+}
+
+.topbar__spacer {
+    flex: 1;
+}
