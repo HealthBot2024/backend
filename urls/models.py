@@ -17,6 +17,10 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=50, unique=True)
     display_name = models.CharField(max_length=50, default="John Doe")
+    ranking = models.CharField(max_length=32, default="Novice")
+    score = models.IntegerField(default=0)
+    drives = models.IntegerField(default=0)
+
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 

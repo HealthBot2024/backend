@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import CustomUserCreationForm
@@ -75,3 +76,32 @@ def delete_user(request):
     if request.user.is_authenticated:
         request.user.delete()
     return redirect('/')
+
+def find_user(request):
+    if request.method == 'GET':
+        username = request.GET.get('u')
+        password = request.GET.get('p')
+
+        user = authenticate(request, username=username, password=password)
+        if user:
+            return JsonResponse({
+                'ok': True,
+                'display_name': user.display_name
+            })
+        else:
+            return JsonResponse({
+                'ok': False
+            })
+    else:
+        return redirect('/')
+
+def myDriving(request):
+    if request.user.is_authenticated:
+        return render(request, 'driving.html', {
+            'ranking': request.user.ranking,
+            'display_name': request.user.display_name,
+            'score': request.user.score,
+            'drives': request.user.drives
+        })
+    else:
+        return redirect('/')

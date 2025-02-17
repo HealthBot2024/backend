@@ -1,0 +1,51 @@
+{% extends 'urls/baseplate.html' %}
+{% load static %}
+{% block title %}Dashboard{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'dashboard.css' %}">
+{% endblock %}
+{% block content %}
+<nav class="topbar">
+    <div>
+        <a class="btn" href="/dashboard">Dashboard</a>
+        <a class="btn" href="/">Leader Boards</a>
+        <a class="btn" href="/">Python-OBD</a>
+    </div>
+</nav>
+
+<h1>Hello, {{ display_name }}. You are a {{ ranking }}!</h1>
+<p style="font-size: 1.5rem;text-align: center;">Green Score: <b>{{ score }}</b></p>
+
+<div class="rankings">
+    <span style="left: {{ score }}%" id="you">YOU</span>
+    <span style="left: 0%;top: 0px;">Platinum Polluter</span>
+    <span style="left: 5%;top: 5px;">Diamond Destroyer</span>
+    <span style="left: 20%;top: 20px;">Callous Contaminator</span>
+    <span style="left: 30%;top: 30px;">Respiratory Reaper</span>
+    <span style="left: 40%;top: 40px;">Bearly Breathable</span>
+    <span style="left: 50%;top: 50px;">Decent Driver</span>
+    <span style="left: 60%;top: 60px;">Conscientious Consumer</span>
+    <span style="left: 70%;top: 70px;">Green Machine</span>
+    <span style="left: 90%;top: 90px;">Methane Messiah</span>
+    <span style="left: 95%;top: 95px;">Greta Graduate</span>
+</div>
+
+<h3 style="text-align: left;margin: 20px 10px;">Ranking System:</h3>
+<ol>
+    <li>Novice (unranked)</li>
+    <li>Platinum Polluter</li>
+    <li>Diamond Destroyer</li>
+    <li>Callous Contaminator</li>
+    <li>Respiratory Reaper</li>
+    <li>Bearly Breathable</li>
+    <li>Decent Driver</li>
+    <li>Conscientious Consumer</li>
+    <li>Green Machine</li>
+    <li>Methane Messiah</li>
+    <li>Greta Graduate</li>
+</ol>
+
+<h3 style="text-align: left;margin-left: 10px;">What is your Green Score?</h3>
+<p>Your green score is a ranking from 0 - 100 of how eco-friendly your driving is, where 0 is the worst (Platinum Polluter) and 100 is the best (Greta Graduate).</p>
+
+{% endblock %}
