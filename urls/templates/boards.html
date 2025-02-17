@@ -1,0 +1,77 @@
+{% extends 'urls/baseplate.html' %}
+{% load static %}
+{% block title %}Dashboard{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'dashboard.css' %}">
+<style>
+    table {
+        border-collapse: collapse;
+        min-width: 75vw;
+        margin-left: 50%;
+        translate: -50%;
+    }
+    th, td {
+        border: solid black 1px;
+        background-color: var(--text);
+        color: var(--background);
+        text-align: center;
+    }
+    #scroll {
+        margin-left: 50%;
+        margin-bottom: 20px;
+        translate: -50%;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<nav class="topbar">
+    <div>
+        <a class="btn" href="/my-driving">My Driving</a>
+        <a class="btn" href="/dashboard">Dashboard</a>
+        <a class="btn" href="/">Python-OBD</a>
+    </div>
+</nav>
+
+<h1>Leader Boards</h1>
+
+<button class="btn" id="scroll">Scroll To @{{ username }} ▽</button>
+
+<table>
+    <tr>
+        <th>Place</th>
+        <th>Name</th>
+        <th>Green Score</th>
+    </tr>
+    {% for user in ordered %}
+        {% if user.username == username %}
+            <tr id="active-user">
+                <td style="background-color: #4cff55;">{{ user.place }}</td>
+                <td style="background-color: #4cff55;">{{ user.display_name }} (You!)<br>
+                    <span>@{{ user.username }}</span></td>
+                <td style="background-color: #4cff55;">{{ user.score }}<br>
+                    <span><b>{{ user.ranking }}</b></span></td>
+            </tr>
+        {% else %}
+        <tr>
+            <td>{{ user.place }}</td>
+            <td>{{ user.display_name }}<br>
+                <span>@{{ user.username }}</span></td>
+            <td>{{ user.score }}<br>
+                <span><b>{{ user.ranking }}</b></span></td>
+        </tr>
+        {% endif %}
+    {% endfor %}
+</table>
+
+<script>
+    // code inserted by template 'boards.html'
+
+    document.getElementById('scroll').addEventListener('click', () => {
+        document.getElementById('active-user').scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+        })
+    })
+</script>
+
+{% endblock %}

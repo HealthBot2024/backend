@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import CustomUserCreationForm
+from .models import User
 
 def index(request):
     if request.user.is_authenticated:
@@ -102,6 +103,24 @@ def myDriving(request):
             'display_name': request.user.display_name,
             'score': request.user.score,
             'drives': request.user.drives
+        })
+    else:
+        return redirect('/')
+
+def boards(request):
+    if request.user.is_authenticated:
+        qset = User.objects.all().order_by('score')
+        context = [{
+            'display_name': user.display_name,
+            'username': user.username,
+            'ranking': user.ranking,
+            'score': user.score,
+            'place': i + 1
+        } for i, user in enumerate(qset)]
+
+        return render(request, 'boards.html', {
+            'ordered': context,
+            'username': request.user.username
         })
     else:
         return redirect('/')
